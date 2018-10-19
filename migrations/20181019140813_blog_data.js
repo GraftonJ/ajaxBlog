@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
     table.increments('id')
     table.string('title', 255).notNullable().defaultTo('')
     table.text('content').notNullable().defaultTo('')
-    table.timestamps(true, true)
+    //table.timestamps(true, true)
   })
 
 }
