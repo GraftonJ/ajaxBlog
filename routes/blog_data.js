@@ -79,7 +79,31 @@ router.patch('/:id', (req, res, next) => {
   })
 })
 
+//Delete One RECORD
+router.delete('/:id', (req, res, next) => {
+    // FIRST KNEX CALL: Using the given id (req.params.id), look up if that record actually exists
+    knex('blog_data')
+    .where('id', req.params.id)
+    .then((foundRecords) => {
+      // if it exists, delete it
+      if( foundRecords.length > 0 ) {
+        // SECOND KNEX CALL: Delete the record from the DB
+        knex('blog_data').del()
+        .where('id', req.params.id)
+        .returning('*')
+        .then((results) => {
+          let deletedRecord = results[0]
+          res.send(deletedRecord)
+        })
 
-
+      } else {
+        // Couldn't find what I'm trying to delete
+        throw new Error(`Can't delete what does not exist`)
+      }
+    })
+    .catch((err) => {
+      next(err)
+    })
+})
 
 module.exports = router
