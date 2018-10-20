@@ -2,6 +2,8 @@
 <html>
 
 <head>
+  <!--CSS-->
+  <link rel="stylesheet" href="./stylesheets/style.css">
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
@@ -23,7 +25,7 @@
     <!-- Page Content goes here -->
     <nav>
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Bob Loblaw Law Blog</a>
+        <a href="#" class="brand-logo" id='page-title'>Bob Loblaw Law Blog</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a href="sass.html">New Post</a></li>
         </ul>
@@ -31,13 +33,13 @@
     </nav>
     <div class="row">
       <div class="collection col s4 center-align" id='sidebar'>
-        <a href="#!" class="collection-item">EXAMPLE BLOG POST LINK</a>
+        <!--sidebar titles inserted from DOM here-->
       </div>
-      <div class="col s8 center-align">
-         <input placeholder="New Post Title Goes Here" id="title" type="text" class="validate">
+      <div class="col s8 center-align" id='content-area'>
+         <!-- <input placeholder="New Post Title Goes Here" id="title" type="text" class="validate">
          <label for="title">Title</label>
          <textarea placeholder="Write your content here. The text area will expand to fit your content."id="textarea1" class="materialize-textarea"></textarea>
-          <label for="textarea1">Content</label>
+          <label for="textarea1">Content</label> -->
 
       </div>
     </div>
