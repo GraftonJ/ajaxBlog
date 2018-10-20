@@ -5,11 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function getPosts() {
+  //Set variable for sidebar parent element
+  const sidebar = document.getElementById('sidebar')
+  //Clear out the sidebar if there is already content there
+  sidebar.innerHTML = ''
+  //get posts from db 
   axios.get('http://localhost:3000/blog_data')
     .then((response) => {
       response.data.forEach((post) => {
-        //Set variable for sidebar parent element
-        const sidebar = document.getElementById('sidebar')
         //Create links of blog post titles in the left sidebar
         let sideTitle = document.createElement('a')
         sideTitle.innerHTML = `
@@ -78,10 +81,11 @@ function createPost() {
         //axios.post that data to the correct backend route
         axios.post('http://localhost:3000/blog_data', postData)
           .then((response) => {
-            // document.getElementById("submit-form").disabled = true
-            // let success = document.createElement('p')
-            // success.innerHTML = `Successfully added ${response.data[0].title}.<a href='movies.html'>See all movies.</a>`
-            // form.appendChild(success)
+            contentArea.innerHTML = ''
+            let success = document.createElement('p')
+            success.innerHTML = `Successfully added ${response.data[0].title}.`
+            contentArea.appendChild(success)
+            getPosts()
           })
           .catch((error) => {
             console.log(error)
