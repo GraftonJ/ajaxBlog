@@ -9,7 +9,7 @@ function getPosts() {
   const sidebar = document.getElementById('sidebar')
   //Clear out the sidebar if there is already content there
   sidebar.innerHTML = ''
-  //get posts from db 
+  //get posts from db
   axios.get('http://localhost:3000/blog_data')
     .then((response) => {
       response.data.forEach((post) => {
@@ -31,6 +31,8 @@ function getPosts() {
           content.innerHTML = `
           <h2>${post.title}</h2><br>
           <p>${post.content}</p>
+          <a class="waves-effect waves-light btn" id='delete-button'>Delete</a>
+          <a class="waves-effect waves-light btn" id='edit-button'>Edit</a>
         `
           contentArea.appendChild(content)
         })
