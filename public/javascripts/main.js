@@ -53,11 +53,69 @@ function getPosts() {
               .catch((err) => {
                 //console.log(err)
               })
-
           })
+          //End of delete post above
+          //Edit post
+          editButton.addEventListener('click', (ev) => {
+            contentArea.innerHTML = ''
+            //Create a form with the fields prefield
+            let editForm = document.createElement('div')
+            editForm.innerHTML = `
+              <h2>Edit "${post.title}"</h2>
+              <form id='create-post-form'>
+                <input id="edit-title" type="text" class="validate" name="title"
+                <label for="title">Title</label>
+                <textarea placeholder="Write your content here. The text area will expand to fit your content."id="content" class="materialize-textarea" name='content'></textarea>
+                <br>
+                <input class="waves-effect waves-light btn" type="submit" value="Submit" id="submit-form">
+              <form>
+            `
+            editForm.setAttribute('id', 'edit-form')
+            //Append to page
+            contentArea.appendChild(editForm)
+            //pre-fill with values
+            let editTitle = document.getElementById('edit-title')
+            editTitle.setAttribute('value', post.title)
+            let content = document.getElementById('content')
+            content.innerText = post.content
+            //On submit, use the patch route to update the content
+            let form = document.getElementById('edit-form')
+            form.addEventListener('submit', (ev) => {
+              ev.preventDefault()
+              // grab all values from the form
+              let postData = {}
+              let formElements = ev.target.elements
+              for (var i = 0; i < formElements.length; i++) {
+                let inputName = formElements[i].name
+                console.log('INPUT NAME>>>>', inputName);
+                if (inputName) {
+                  postData[inputName] = formElements[i].value
+                  console.log('form value>>>', formElements[i].value);
+                }
+              }
+              console.log('postData', postData);
+            // axios.patch that data to the correct backend route
+            axios.patch(`http://localhost:3000/blog_data/${postID}`, postData)
+            .then((response) => {
+              contentArea.innerHTML = ''
+              let success = document.createElement('p')
+                  success.innerHTML = `Successfully edited "${response.data[0].title}"`
+                  contentArea.appendChild(success)
+              getPosts()
+            })
+            .catch((error) => {
+              console.log(error)
+            })
+            })
+            //End of submit event listener above
+          })
+          //End of edit post above
         })
+        //End of show post above
       })
+      //End of For Each function above
     })
+  //End of .the
 }
 //End of get Posts Function above
 
@@ -84,35 +142,35 @@ function createPost() {
     contentArea.appendChild(createContent)
 
     //Handle the form Submission and Post the Content to the db
-      let form = document.getElementById('create-post-form')
-      form.addEventListener('submit', (ev) => {
-        ev.preventDefault()
-        // grab all values from the form
-        let postData = {}
-        let formElements = ev.target.elements
+    let form = document.getElementById('create-post-form')
+    form.addEventListener('submit', (ev) => {
+      ev.preventDefault()
+      // grab all values from the form
+      let postData = {}
+      let formElements = ev.target.elements
 
-        for (var i = 0; i < formElements.length; i++) {
-          let inputName = formElements[i].name
-          if (inputName) {
-            postData[inputName] = formElements[i].value
-          }
+      for (var i = 0; i < formElements.length; i++) {
+        let inputName = formElements[i].name
+        if (inputName) {
+          postData[inputName] = formElements[i].value
         }
+      }
 
-        console.log('postData', postData);
+      console.log('postData', postData);
 
-        //axios.post that data to the correct backend route
-        axios.post('http://localhost:3000/blog_data', postData)
-          .then((response) => {
-            contentArea.innerHTML = ''
-            let success = document.createElement('p')
-            success.innerHTML = `Successfully added ${response.data[0].title}.`
-            contentArea.appendChild(success)
-            getPosts()
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-      })
+      //axios.post that data to the correct backend route
+      axios.post('http://localhost:3000/blog_data', postData)
+        .then((response) => {
+          contentArea.innerHTML = ''
+          let success = document.createElement('p')
+          success.innerHTML = `Successfully added ${response.data[0].title}.`
+          contentArea.appendChild(success)
+          getPosts()
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    })
   })
 }
 
