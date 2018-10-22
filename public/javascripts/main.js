@@ -35,6 +35,26 @@ function getPosts() {
           <a class="waves-effect waves-light btn" id='edit-button'>Edit</a>
         `
           contentArea.appendChild(content)
+          //Get the Delete and Edit butotns and assing the post id attribute
+          let deleteButton = document.getElementById('delete-button')
+          deleteButton.setAttribute('data-id', post.id)
+          let editButton = document.getElementById('edit-button')
+          editButton.setAttribute('data-id', post.id)
+          //Delete Post
+          deleteButton.addEventListener('click', (ev) => {
+            axios.delete(`http://localhost:3000/blog_data/${postID}`)
+              .then((response) => {
+                contentArea.innerHTML = ''
+                let success = document.createElement('p')
+                success.innerHTML = `Successfully deleted the post "${post.title}".`
+                contentArea.appendChild(success)
+                getPosts()
+              })
+              .catch((err) => {
+                //console.log(err)
+              })
+
+          })
         })
       })
     })
