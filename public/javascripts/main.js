@@ -43,7 +43,7 @@ function getPosts() {
           editButton.setAttribute('data-id', post.id)
           //Delete Post
           deleteButton.addEventListener('click', (ev) => {
-            axios.delete(`http://localhost:3000/blog_data/${postID}`)
+            axios.delete(`https://ajax-blog-g103.herokuapp.com/blog_data/${postID}`)
               .then((response) => {
                 contentArea.innerHTML = ''
                 let success = document.createElement('p')
