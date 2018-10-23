@@ -11,7 +11,7 @@ function getPosts() {
   //Clear out the sidebar if there is already content there
   sidebar.innerHTML = ''
   //get posts from db
-  axios.get('http://localhost:3000/blog_data')
+  axios.get('https://ajax-blog-g103.herokuapp.com/blog_data')
     .then((response) => {
       response.data.forEach((post) => {
         //Create links of blog post titles in the left sidebar
