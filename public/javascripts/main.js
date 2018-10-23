@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('Connected to Main.js');
   getPosts()
   createPost()
+  homepage()
 })
 
 function getPosts() {
@@ -94,18 +95,18 @@ function getPosts() {
                 }
               }
               console.log('postData', postData);
-            // axios.patch that data to the correct backend route
-            axios.patch(`http://localhost:3000/blog_data/${postID}`, postData)
-            .then((response) => {
-              contentArea.innerHTML = ''
-              let success = document.createElement('p')
+              // axios.patch that data to the correct backend route
+              axios.patch(`http://localhost:3000/blog_data/${postID}`, postData)
+                .then((response) => {
+                  contentArea.innerHTML = ''
+                  let success = document.createElement('p')
                   success.innerHTML = `Successfully edited "${response.data[0].title}"`
                   contentArea.appendChild(success)
-              getPosts()
-            })
-            .catch((error) => {
-              console.log(error)
-            })
+                  getPosts()
+                })
+                .catch((error) => {
+                  console.log(error)
+                })
             })
             //End of submit event listener above
           })
@@ -118,10 +119,8 @@ function getPosts() {
   //End of .the
 }
 //End of get Posts Function above
-
 //Create Post
 function createPost() {
-
   //Create the New Post Area on 'Create Post' Click
   const createLink = document.getElementById('create-post')
   createLink.addEventListener('click', (ev) => {
@@ -171,6 +170,20 @@ function createPost() {
           console.log(error)
         })
     })
+  })
+}
+
+function homepage() {
+  let homeButton = document.getElementById('page-title')
+  homeButton.addEventListener('click', (ev) => {
+    let contentArea = document.getElementById('content-area')
+    contentArea.innerHTML = ''
+    let homeContent = document.createElement('div')
+    homeContent.innerHTML = `
+      <h2>The Law Offices of Bob Loblaw</h2>
+      <p>Read Bob Loblaw's Law Blog by clicking Law Blog blog post from the left.<p>
+    `
+    contentArea.appendChild(homeContent)
   })
 }
 
