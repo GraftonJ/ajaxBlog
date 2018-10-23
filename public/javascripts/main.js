@@ -96,7 +96,7 @@ function getPosts() {
               }
               console.log('postData', postData);
               // axios.patch that data to the correct backend route
-              axios.patch(`http://localhost:3000/blog_data/${postID}`, postData)
+              axios.patch(`https://ajax-blog-g103.herokuapp.com/blog_data/${postID}`, postData)
                 .then((response) => {
                   contentArea.innerHTML = ''
                   let success = document.createElement('p')
@@ -158,7 +158,7 @@ function createPost() {
       console.log('postData', postData);
 
       //axios.post that data to the correct backend route
-      axios.post('http://localhost:3000/blog_data', postData)
+      axios.post('https://ajax-blog-g103.herokuapp.com/blog_data', postData)
         .then((response) => {
           contentArea.innerHTML = ''
           let success = document.createElement('p')
